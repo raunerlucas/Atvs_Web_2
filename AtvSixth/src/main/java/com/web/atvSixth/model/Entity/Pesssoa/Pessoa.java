@@ -27,7 +27,8 @@ public abstract class Pessoa implements Serializable {
     @NotBlank
     private String nome;
 
-    @Pattern(regexp = "\\d{13}", message = "Esse numero não exites. Exp.: 5563900000000")
+    @Pattern(regexp = "^(\\d{4,5})[-\\s]?(\\d{4})$",
+            message = "Telefone deve estar no formato XXXXX-XXXX")
     private String telefone;
 
     @OneToMany(mappedBy = "pessoa")

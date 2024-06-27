@@ -4,9 +4,11 @@ package com.web.atvSixth.controller.Pessoa;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,13 +46,16 @@ public class PessoaFisicaController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute("pessoa") PessoaFisica pessoa) {
+    public ModelAndView save(@ModelAttribute("pessoa") @Valid PessoaFisica pessoa, BindingResult bindingResult, ModelMap m) {
+        if (bindingResult.hasErrors()) return form(m, pessoa);
+
         ry.save(pessoa);
         return new ModelAndView("redirect:/pessoafisica/list");
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@ModelAttribute("pessoa") PessoaFisica pessoaFisica) {
+    public ModelAndView update(@ModelAttribute("pessoa") @Valid PessoaFisica pessoaFisica, BindingResult bindingResult, ModelMap m) {
+        if (bindingResult.hasErrors()) return form(m, pessoaFisica);
         ry.update(pessoaFisica);
         return new ModelAndView("redirect:/pessoafisica/" + pessoaFisica.getId());
     }

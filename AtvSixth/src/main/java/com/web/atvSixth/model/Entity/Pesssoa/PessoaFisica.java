@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Data
 @Entity
 public class PessoaFisica extends Pessoa implements Serializable {
-    @NotBlank
-    @Size(min = 11)
-    @Pattern(regexp = "\\d{11}")
+
+    @Pattern(regexp = "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{11})$",
+            message = "CPF deve estar no formato 000.000.000-00 ou 00000000000")
     private String cpf;
 }
