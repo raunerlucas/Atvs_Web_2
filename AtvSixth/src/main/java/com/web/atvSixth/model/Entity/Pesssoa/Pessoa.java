@@ -27,8 +27,7 @@ public abstract class Pessoa implements Serializable {
     @NotBlank
     private String nome;
 
-    @NotBlank
-    @Pattern(regexp = "\\d{14}")
+    @Pattern(regexp = "\\d{13}", message = "Esse numero não exites. Exp.: 5563900000000")
     private String telefone;
 
     @OneToMany(mappedBy = "pessoa")
@@ -37,15 +36,16 @@ public abstract class Pessoa implements Serializable {
     public void addVenda(Venda venda) {
         vendas.add(venda);
     }
+
     public void removeVenda(Venda venda) {
         vendas.remove(venda);
     }
 
-    public boolean tipoObjeto(String objeto){
+    public boolean tipoObjeto(String objeto) {
         return this.getClass().getSimpleName().equalsIgnoreCase(objeto);
     }
 
-    public String nomeClasse(){
+    public String nomeClasse() {
         return this.getClass().getSimpleName().toLowerCase();
     }
 }

@@ -12,8 +12,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
     @NotBlank
     private String razaoSocial;
 
-    @Size(min = 14)
-    @Pattern(regexp = "\\d{14}")
+    @Size(min = 14, max = 18)
     private String cnpj;
 
 }

@@ -3,9 +3,11 @@ package com.web.atvSixth.controller.Pessoa;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaJuridica;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,13 +20,13 @@ public class PessoaJuridicaController {
     PessoaJuridicaRepository ry;
 
     @GetMapping("/form")
-    public ModelAndView form(ModelMap model, PessoaJuridica pessoaJ){
+    public ModelAndView form(ModelMap model, PessoaJuridica pessoaJ) {
         model.addAttribute("pessoa", pessoaJ == null ? new PessoaJuridica() : pessoaJ);
         return new ModelAndView("Pessoa/form");
     }
 
     @GetMapping("/{id}")
-    public ModelAndView venda(@PathVariable("id") Long id, ModelMap model){
+    public ModelAndView venda(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("pessoa", ry.pessoaJuridica(id));
         return new ModelAndView("Pessoa/detail");
     }
@@ -36,25 +38,29 @@ public class PessoaJuridicaController {
     }
 
     @GetMapping("list")
-    public ModelAndView venda(ModelMap model){
+    public ModelAndView venda(ModelMap model) {
         model.addAttribute("pessoa", ry.pessoasJuridicas());
         return new ModelAndView("Pessoa/list");
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute("pessoa") PessoaJuridica pessoa){
+    public ModelAndView save(@ModelAttribute("pessoa") @Valid PessoaJuridica pessoa, BindingResult bindingResult, ModelMap m) {
+        if (bindingResult.hasErrors()) return form(m, pessoa);
+
         ry.save(pessoa);
         return new ModelAndView("redirect:/pessoajuridica/list");
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@ModelAttribute("pessoa") PessoaJuridica pessoaJuridica) {
-        ry.update(pessoaJuridica);
-        return new ModelAndView("redirect:/pessoajuridica/"+pessoaJuridica.getId());
+    public ModelAndView update(@ModelAttribute("pessoa") @Valid PessoaJuridica pessoa, BindingResult bindingResult, ModelMap m) {
+        if (bindingResult.hasErrors()) return form(m, pessoa);
+
+        ry.update(pessoa);
+        return new ModelAndView("redirect:/pessoajuridica/" + pessoa.getId());
     }
 
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable("id") Long id){
+    public ModelAndView remove(@PathVariable("id") Long id) {
         ry.remove(id);
         return new ModelAndView("redirect:/pessoajuridica/list");
     }

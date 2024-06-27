@@ -23,16 +23,24 @@
                     <input type="text"
                            class="form-control"
                            th:field="*{nome}"
-                           required
-                           placeholder="Nome">
+                           placeholder="Nome"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('nome')}"
+                           th:errors="*{nome}">
+                    </label>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Telefone</label>
                     <input type="text"
                            class="form-control"
                            th:field="*{telefone}"
-                           required
-                           placeholder="Telefone">
+                           placeholder="Telefone"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('telefone')}"
+                           th:errors="*{telefone}">
+                    </label>
                 </div>
                 <div class="mb-3"
                      th:if="${!isPF}">
@@ -40,8 +48,12 @@
                     <input type="text"
                            class="form-control"
                            th:field="*{razaoSocial}"
-                           required
-                           placeholder="Razão Social">
+                           placeholder="Razão Social"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('razaoSocial')}"
+                           th:errors="*{razaoSocial}">
+                    </label>
                 </div>
                 <div class="mb-3"
                      th:if="${isPF}">
@@ -49,8 +61,12 @@
                     <input type="text"
                            class="form-control"
                            th:field="*{cpf}"
-                           required
-                           placeholder="CPF">
+                           placeholder="CPF"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('cpf')}"
+                           th:errors="*{cpf}">
+                    </label>
                 </div>
                 <div class="mb-3"
                      th:if="${!isPF}">
@@ -58,8 +74,12 @@
                     <input type="text"
                            class="form-control"
                            th:field="*{cnpj}"
-                           required
-                           placeholder="CNPJ">
+                           placeholder="CNPJ"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('cnpj')}"
+                           th:errors="*{cnpj}">
+                    </label>
                 </div>
                 <input class="btn btn-primary btn-lg" type="submit" value="Salvar">
             </form>
