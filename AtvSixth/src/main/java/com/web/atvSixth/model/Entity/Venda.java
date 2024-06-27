@@ -2,6 +2,8 @@ package com.web.atvSixth.model.Entity;
 
 import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,10 +24,16 @@ public class Venda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private LocalDate data;
+
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+    @NotEmpty(message = "Não se pode realizar uma venda sem produtos para serem vendidos")
     private List<ItemVenda> itensVenda = new ArrayList<>();
+
     @ManyToOne
+    @NotNull
     private Pessoa pessoa;
 
     public void addItemVenda(ItemVenda itemVenda) {

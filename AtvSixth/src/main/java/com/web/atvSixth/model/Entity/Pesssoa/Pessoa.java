@@ -2,6 +2,9 @@ package com.web.atvSixth.model.Entity.Pesssoa;
 
 import com.web.atvSixth.model.Entity.Venda;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,8 +23,14 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
+
+    @NotBlank
     private String nome;
+
+    @NotBlank
+    @Pattern(regexp = "\\d{14}")
     private String telefone;
+
     @OneToMany(mappedBy = "pessoa")
     private List<Venda> vendas = new ArrayList<>();
 
@@ -33,7 +42,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public boolean tipoObjeto(String objeto){
-        return this.getClass().getSimpleName().toLowerCase().equals(objeto.toLowerCase());
+        return this.getClass().getSimpleName().equalsIgnoreCase(objeto);
     }
 
     public String nomeClasse(){
