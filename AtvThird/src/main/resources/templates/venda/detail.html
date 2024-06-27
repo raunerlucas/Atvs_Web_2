@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Venda</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<section class="leaout">
+    <div style="margin-left: 9em">
+        <h4 th:text="'Data: '+${venda.formtData()}"></h4>
+    </div>
+    <div>
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Id do Produto</th>
+                <th>Descrição do Produto </th>
+                <th>Valor do Produto</th>
+                <th>Quantidade de Itens</th>
+                <th>Valor do Itens</th>
+            </tr>
+            </thead>
+            <tr th:each="it : ${venda.getItensVenda()}">
+                <td th:text="${it.produto.id}"> </td>
+                <td th:text="${it.produto.descricao}"> </td>
+                <td th:text="${it.produto.valor}+' R$'"> </td>
+                <td th:text="${it.quantidade}"> </td>
+                <td th:text="${it.total()}"> </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center">
+        <h3 style="font-size: x-large" th:text="'TOTAL == '+${venda.total()}"></h3>
+    </div>
+</section>
+</body>
+</html>

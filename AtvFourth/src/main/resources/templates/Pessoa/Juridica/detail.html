@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>PessoasJuridicas</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<section class="leaout">
+    <div>
+        <div class="center">
+            <a th:href="@{/pessoa/juridica/edit/{id}(id=${pessoa.id})}"><button>EDITAR</button></a>
+            <a th:href="@{/pessoa/juridica/remove/{id}(id=${pessoa.id})}"><button id="btnDelet">DELETAR</button></a>
+        </div>
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>CNPJ</th>
+            </tr>
+            </thead>
+            <tr>
+                <td th:text="${pessoa.id}"> </td>
+                <td th:text="${pessoa.nome}"> </td>
+                <td th:text="${pessoa.telefone}"> </td>
+                <td th:text="${pessoa.cnpj}"> </td>
+            </tr>
+        </table>
+    </div>
+</section>
+</body>
+</html>

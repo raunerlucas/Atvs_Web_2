@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pessoa Juridica</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div class="leaout">
+        <h1>Pessoa Juridica</h1>
+        <form th:action="${pessoa.id == null} ? @{/pessoa/juridica/save} : @{/pessoa/juridica/update}" th:object="${pessoa}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <input type="text" th:field="*{nome}"  placeholder="Nome">
+            <input type="text" th:field="*{telefone}"  placeholder="Telefone">
+            <input type="text" th:field="*{cnpj}"  placeholder="CNPJ">
+            <input type="submit" value="Salvar">
+        </form>
+    </div>
+</body>
+</html>

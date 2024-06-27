@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
+    <title>Venda</title>
+    <link rel="stylesheet" type="text/css" href="/vendas/style.css">
+</head>
+<body>
+<main>
+    <section class="container">
+        <h3>Vendas Cadastradas</h3>
+        <div class="div-container">
+            <a th:each="v : ${vendas}" th:href="@{/venda/{id}(id=${v.id})}">
+                <button class="btn btn-info shadow">
+                    <p th:text="'Venda -- '+${v.id}"></p>
+                    <p th:text="'Data -- '+${v.data}"></p>
+                    <p th:text="'Valor -- '+${v.total()}+'R$'"></p>
+                </button>
+            </a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

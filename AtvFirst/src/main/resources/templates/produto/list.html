@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de produtos</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<div class="center">
+    <a href="form"><button>Novo Produto</button></a>
+</div>
+<div>
+
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th colspan="2">Ações</th>
+        </tr>
+        </thead>
+        <tr th:each="p : ${produtos}">
+            <td th:text="${p.id}"> </td>
+            <td th:text="${p.descricao}"> </td>
+            <td th:text="${p.valor}"> </td>
+            <td> <a th:href="@{/produto/edit/{id}(id=${p.id})}">Editar</a> </td>
+            <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/produto/remove/{id}(id=${p.id})}">Excluir</a> </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

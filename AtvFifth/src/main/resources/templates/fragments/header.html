@@ -1,0 +1,49 @@
+<header class="header" th:fragment="header">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fs-5">
+
+        <div class="container-xxl">
+
+            <a class="navbar-brand fs-3" href="/pages/home">Site De Compras</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse div-nav-ul" id="navbarSupportedContent">
+                <ul class="navbar-nav justify-content-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produto/list">Produtos</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/venda/list">Vendas</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Pessoa
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/pessoafisica/list">Pessoa Fisica</a></li>
+                            <li><a class="dropdown-item" href="/pessoajuridica/list">Pessoa Juridica</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <!--
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                -->
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+

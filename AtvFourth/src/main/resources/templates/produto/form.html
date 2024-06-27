@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro e Edição</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div class="leaout">
+        <h1>Produtos</h1>
+        <form th:action="${produto.id == null ? '/produto/save' : '/produto/update'}" th:object="${produto}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <input type="text" th:field="*{descricao}"  placeholder="Descrição">
+            <input type="text" th:field="*{valor}"  placeholder="Valor">
+            <input type="submit" value="Salvar">
+        </form>
+    </div>
+</body>
+</html>

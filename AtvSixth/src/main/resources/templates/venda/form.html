@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
+    <title>Carrinho</title>
+    <link rel="stylesheet" type="text/css" href="/vendas/style.css">
+</head>
+
+<body>
+<main th:with="itens=${session.venda.getItensVenda()}">
+    <div class="container">
+        <h1>Carrinho de Compras</h1>
+        <h3 th:if="${itens.isEmpty()}">Se o Carrinho esta vazio!<br> Basta <a href="/produto/comprar">COMPRAR</a></h3>
+    </div>
+    <div th:if="${!itens.isEmpty()}" class="div-container">
+        <div class="mb-3">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="table-dark">
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th></th>
+                    <th>Quantidade</th>
+                    <th></th>
+                    <th>Valor Total</th>
+                    <th>Remolver</th>
+                </tr>
+                </thead>
+                <tr th:each="i : ${itens}">
+                    <td th:text="${i.getProduto().getDescricao()}"></td>
+                    <td th:text="${#numbers.formatCurrency(i.getProduto().valor)}"></td>
+                    <td><a th:href="@{/venda/produto/retira/{id}(id=${i.produto.id}, cart='true')}">
+                        <button class="btn btn-outline-warning">-</button>
+                    </a></td>
+                    <td th:text="${i.quantidade}"></td>
+                    <td><a th:href="@{/venda/produto/add/{id}(id=${i.produto.id}, cart='true')}">
+                        <button class="btn btn-outline-info">+</button>
+                    </a></td>
+                    <td th:text="${#numbers.formatCurrency(i.total())}"></td>
+                    <td><a th:href="@{/venda/produto/remove/{id}(id=${i.produto.id}, cart='true')}">
+                        <button class="btn btn-outline-danger">X</button>
+                    </a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="mb-3">
+            <h3>Total: <span th:text="${session.venda.total()} + ' R$'"></span></h3>
+            <form th:action="@{/venda/save}" method="post" th:object="${pessoa}">
+                <div class="mb-3">
+                    <label class="form-label">Selecione um Cliente</label>
+                    <select class="form-select" required name="id">
+                        <option th:each="p : ${pessoas}" th:text="${p.nome}" th:value="${p.id}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">
+                        <input class="btn btn-success btn-lg" type="submit" value="Comprar">
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+    </section>
+</main>
+</body>
+</html>

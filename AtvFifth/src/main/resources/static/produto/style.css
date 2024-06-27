@@ -1,0 +1,19 @@
+.produto-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.table{
+    border: black solid 1px;
+}
+
+/* Form Style */
+
+.form{
+    max-width: 40%;
+}

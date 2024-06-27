@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Venda</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<div class="itensVenda leaout">
+    <a th:each="v : ${vendas}" th:href="@{/venda/{id}(id=${v.id})}">
+        <button>
+            <p th:text="'Venda -- '+${v.id}"></p>
+            <p th:text="'Data -- '+${v.data}"></p>
+            <p th:text="'Valor -- '+${v.total()}+'R$'"></p>
+        </button>
+    </a>
+</div>
+</body>
+</html>

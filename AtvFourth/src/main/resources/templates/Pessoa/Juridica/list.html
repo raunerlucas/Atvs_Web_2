@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListaPessoasJuridicas</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<div class="center">
+    <a href="/pessoa/juridica/form"><button>NOVA Pessoa Juridica</button></a>
+</div>
+<div class="itensVenda leaout">
+    <a th:each="p : ${psJuridicas}" th:href="@{/pessoa/juridica/{id}(id=${p.id})}">
+        <button>
+            <p th:text="'NOME -- '+${p.nome}"></p>
+        </button>
+    </a>
+</div>
+</body>
+</html>
