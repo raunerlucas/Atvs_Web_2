@@ -18,16 +18,26 @@
                     <input type="text"
                            class="form-control"
                            th:field="*{descricao}"
-                           required
-                           placeholder="Descrição">
+                           placeholder="Descrição"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('descricao')}"
+                           th:errors="*{descricao}">
+                    </label>
+                    <!--    <div th:each="erro : ${#fields.detailedErrors()}">-->
+                    <!--    <span th:text="${(erro.fieldName).toCapitalazy}+' '+${erro.message}"></span></div>-->
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Valor</label>
                     <input type="number"
                            class="form-control"
                            th:field="*{valor}"
-                           required
-                           placeholder="Valor">
+                           placeholder="Valor"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('valor')}"
+                           th:errors="*{valor}">
+                    </label>
                 </div>
                 <input class="btn btn-primary btn-lg" type="submit" value="Salvar">
             </form>

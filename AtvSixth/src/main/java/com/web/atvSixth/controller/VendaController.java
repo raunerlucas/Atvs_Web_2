@@ -1,10 +1,7 @@
 package com.web.atvSixth.controller;
 
-
-import com.web.atvSixth.model.Entity.ItemVenda;
 import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
-import com.web.atvSixth.model.Entity.Produto;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.VendaRepository;
 import com.web.atvSixth.tools.Resolve;

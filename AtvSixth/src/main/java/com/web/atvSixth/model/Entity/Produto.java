@@ -22,6 +22,5 @@ public class Produto implements Serializable {
 
     @NotNull
     @Min(0L)
-    @Digits(integer = Double.SIZE, fraction = 2)
     private Double valor;
 }

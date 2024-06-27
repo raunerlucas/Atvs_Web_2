@@ -45,7 +45,7 @@
     color: white;
 }
 
-/* Outer Stlys */
+/* Outer Style */
 
 td{
     align-content: center;
@@ -67,4 +67,13 @@ td{
 
 .form-label {
     font-weight: bolder;
+}
+
+/* Error style */
+
+.msgError {
+        letter-spacing: 0.1em;
+        font-weight: 600;
+        font-family: Helvetica;
+        text-transform: capitalize;
 }
