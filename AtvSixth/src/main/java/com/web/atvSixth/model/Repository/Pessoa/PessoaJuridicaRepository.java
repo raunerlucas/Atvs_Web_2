@@ -14,25 +14,33 @@ public class PessoaJuridicaRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public void save(PessoaJuridica pJuridica){
+    public void save(PessoaJuridica pJuridica) {
         em.persist(pJuridica);
     }
 
-    public PessoaJuridica pessoaJuridica(Long id){
+    public PessoaJuridica pessoaJuridica(Long id) {
         return em.find(PessoaJuridica.class, id);
     }
 
-    public List<PessoaJuridica> pessoasJuridicas(){
+    public List<PessoaJuridica> pessoasJuridicas() {
         Query query = em.createQuery("from PessoaJuridica");
         return query.getResultList();
     }
 
-    public void remove(Long id){
+
+    public List<PessoaJuridica> pessoasJuridicasByName(String name) {
+        Query query = em.createQuery("from PessoaJuridica pj where lower(pj.nome) like lower(:name)");
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
+    public void remove(Long id) {
         PessoaJuridica p = em.find(PessoaJuridica.class, id);
         em.remove(p);
     }
 
-    public void update(PessoaJuridica pJuridica){
+    public void update(PessoaJuridica pJuridica) {
         em.merge(pJuridica);
     }
+
 }
