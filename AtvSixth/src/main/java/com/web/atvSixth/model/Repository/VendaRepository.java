@@ -29,6 +29,19 @@ public class VendaRepository {
         return query.getResultList();
     }
 
+    public List<Venda> vendasByDataAndPessoa(LocalDate data, Long id) {
+        Query query = em.createQuery("from Venda where data >= :data and pessoa.id = :id");
+        query.setParameter("data", data);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
+    public List<Venda> vendasByPessoa(Long id) {
+        Query query = em.createQuery("from Venda where pessoa.id = :id");
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
     public List<Venda> vendas() {
         Query query = em.createQuery("from Venda");
         return query.getResultList();

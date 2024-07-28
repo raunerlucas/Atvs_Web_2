@@ -2,6 +2,7 @@ package com.web.atvSixth.controller.Pessoa;
 
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaJuridica;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
+import com.web.atvSixth.tools.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -23,6 +24,9 @@ public class PessoaJuridicaController {
     @Autowired
     PessoaJuridicaRepository ry;
 
+    @Autowired
+    Resolve r;
+
     @GetMapping("/form")
     public ModelAndView form(ModelMap model, PessoaJuridica pessoaJ) {
         model.addAttribute("pessoa", pessoaJ == null ? new PessoaJuridica() : pessoaJ);
@@ -32,6 +36,7 @@ public class PessoaJuridicaController {
     @GetMapping("/{id}")
     public ModelAndView venda(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("pessoa", ry.pessoaJuridica(id));
+        model.addAttribute("vendas", r.listVendasByIdPessoa(id));
         return new ModelAndView("Pessoa/detail");
     }
 

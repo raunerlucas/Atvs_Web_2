@@ -1,14 +1,13 @@
 package com.web.atvSixth.controller.Pessoa;
 
 
+import com.web.atvSixth.controller.VendaController;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
+import com.web.atvSixth.tools.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,17 +18,17 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.rmi.server.LogStream.log;
-
 
 @Transactional
 @Controller
 @RequestMapping("pessoafisica")
 public class PessoaFisicaController {
 
-    private static final Logger log = LoggerFactory.getLogger(PessoaFisicaController.class);
     @Autowired
     PessoaFisicaRepository ry;
+
+    @Autowired
+    Resolve r;
 
     @GetMapping("/form")
     public ModelAndView form(ModelMap model, PessoaFisica pessoaF) {
@@ -40,6 +39,7 @@ public class PessoaFisicaController {
     @GetMapping("/{id}")
     public ModelAndView listById(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("pessoa", ry.pessoaFisica(id));
+        model.addAttribute("vendas", r.listVendasByIdPessoa(id));
         return new ModelAndView("Pessoa/detail");
     }
 

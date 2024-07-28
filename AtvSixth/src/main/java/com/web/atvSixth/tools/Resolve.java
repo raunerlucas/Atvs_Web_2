@@ -7,10 +7,12 @@ import com.web.atvSixth.model.Repository.ItemVendaRepository;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
 import com.web.atvSixth.model.Repository.ProdutoRepository;
+import com.web.atvSixth.model.Repository.VendaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class Resolve {
     @Autowired
     ItemVendaRepository ryItemVenda;
 
+    @Autowired
+    VendaRepository ryVenda;
+
     public Pessoa isPessoa(Long id) {
         Pessoa pessoa = ryPF.pessoaFisica(id);
         if (pessoa == null) {
@@ -43,11 +48,8 @@ public class Resolve {
         return pessoas;
     }
 
-    public void itensVendaSave(Venda venda) {
-        venda.getItensVenda().forEach(itemVenda -> {
-            ryItemVenda.save(itemVenda);
-        });
-
+    public List<Venda> listVendasByIdPessoa(Long id) {
+        return ryVenda.vendasByPessoa(id);
     }
 
     public ItemVenda newItemVenda(Long idProduto, Venda venda) {
