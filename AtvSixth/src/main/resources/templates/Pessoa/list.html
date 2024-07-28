@@ -30,7 +30,7 @@
                        onclick="return window.confirm('Deseja realmente limpar a busca?')"
                     >Limpar</a>
                 </span>
-                <h5 th:text="${mgs}"></h5>
+                <h5 th:text="${mgs}" th:if="${mgs}"></h5>
             </div>
         </div>
         <div class="div-container">

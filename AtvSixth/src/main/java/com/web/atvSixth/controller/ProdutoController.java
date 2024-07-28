@@ -6,11 +6,13 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Controller
@@ -26,14 +28,38 @@ public class ProdutoController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listar(ModelMap model) {
-        model.addAttribute("produtos", repository.produtos());
+    public ModelAndView listar(ModelMap model, @RequestParam(required = false) String name) {
+        List<Produto> prods = new ArrayList<>();
+        if (name != null && !name.isEmpty()) {
+            prods = repository.produtosByName(name);
+            if (!prods.isEmpty()) {
+                model.addAttribute("findPepl", prods.size());
+            } else {
+                model.addAttribute("mgs", "Este Produto não existe");
+            }
+        }
+        if (prods.isEmpty())
+            prods = repository.produtos();
+
+        model.addAttribute("produtos", prods);
         return new ModelAndView("produto/list");
     }
 
     @GetMapping("/comprar")
-    public ModelAndView listaCompraveis(ModelMap model) {
-        model.addAttribute("produtos", repository.produtos());
+    public ModelAndView listaCompraveis(ModelMap model, @RequestParam(required = false) String name) {
+        List<Produto> prods = new ArrayList<>();
+        if (name != null && !name.isEmpty()) {
+            prods = repository.produtosByName(name);
+            if (!prods.isEmpty()) {
+                model.addAttribute("findPepl", prods.size());
+            } else {
+                model.addAttribute("mgs", "Este Produto não existe");
+            }
+        }
+        if (prods.isEmpty())
+            prods = repository.produtos();
+
+        model.addAttribute("produtos", prods);
         return new ModelAndView("venda/listProdVendas");
     }
 

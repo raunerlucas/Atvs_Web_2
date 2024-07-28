@@ -15,9 +15,18 @@
                     <label class="sr-only">A partir da Data
                         <input type="date" class="form-control" name="data" autocomplete="true">
                     </label>
-                    <span th:text="${mgs}" th:if="${mgs}"></span>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+                <div class="leaout-new">
+                <span th:if="${findPepl != null}">
+                    <h5 th:text="${'Encontrados: '+findPepl}"></h5>
+                    <a class="btn btn-danger"
+                       th:href="${'/venda/list'}"
+                       onclick="return window.confirm('Deseja realmente limpar a busca?')"
+                    >Limpar</a>
+                </span>
+                    <h5 th:text="${mgs}" th:if="${mgs}"></h5>
+                </div>
             </form>
         </div>
         <div>
