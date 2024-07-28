@@ -8,6 +8,18 @@
 <body>
 <main>
     <section class="container">
+        <div class="container mt-5">
+            <h2>Buscar Vendas por Data</h2>
+            <form th:action="${'/venda/list'}" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label class="sr-only">A partir da Data
+                        <input type="date" class="form-control" name="data" autocomplete="true">
+                    </label>
+                    <span th:text="${mgs}" th:if="${mgs}"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+            </form>
+        </div>
         <div>
             <h3>Vendas Cadastradas</h3>
         </div>

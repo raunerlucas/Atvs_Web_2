@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -56,7 +57,7 @@ public class VendaController {
     @GetMapping("/produto/add/{id}")
     public String addProduto(@PathVariable("id") Long idProduto, HttpServletRequest request) {
         String cartParam = request.getParameter("cart");
-        venda.setItensVenda(r.itensVenda(idProduto, venda,false));
+        venda.setItensVenda(r.itensVenda(idProduto, venda, false));
         return cartParam != null && cartParam.equals("true") ? "redirect:/venda/form" : "redirect:/produto/comprar";
     }
 
@@ -75,14 +76,25 @@ public class VendaController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView venda(@PathVariable("id") Long id, ModelMap model) {
+    public ModelAndView vendaById(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("venda", ry.venda(id));
         return new ModelAndView("venda/detail");
     }
 
     @GetMapping("list")
-    public ModelAndView venda(ModelMap model) {
-        model.addAttribute("vendas", ry.vendas());
+    public ModelAndView vendaList(@RequestParam(required = false) String data, ModelMap model) {
+        List<Venda> vendas = new ArrayList<>();
+        if (data != null && !data.isEmpty()) {
+            vendas = ry.vendasByData(LocalDate.parse(data));
+            if (!vendas.isEmpty()) {
+                model.addAttribute("findPepl", vendas.size());
+            } else {
+                model.addAttribute("mgs", "Nada Encontrado");
+            }
+        }
+        if (vendas.isEmpty())
+            vendas = ry.vendas();
+        model.addAttribute("vendas", vendas);
         return new ModelAndView("venda/list");
     }
 
