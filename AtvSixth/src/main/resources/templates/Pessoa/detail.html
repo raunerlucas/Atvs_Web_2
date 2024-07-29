@@ -46,7 +46,7 @@
     <section class="container">
         <div class="container mt-5">
             <h2>Buscar Vendas por Data</h2>
-            <form th:action="${'/venda/list'}" method="get" class="form-inline">
+            <form th:action="${'/'+pessoa.nomeClasse()+'/'+pessoa.id}" method="get" class="form-inline">
                 <div class="form-group mb-2">
                     <label class="sr-only">A partir da Data
                         <input type="date" class="form-control" name="data" autocomplete="true">
@@ -57,7 +57,7 @@
                 <span th:if="${findPepl != null}">
                     <h5 th:text="${'Encontrados: '+findPepl}"></h5>
                     <a class="btn btn-danger"
-                       th:href="${'/venda/list'}"
+                       th:href="${'/'+pessoa.nomeClasse()+'/'+pessoa.id}"
                        onclick="return window.confirm('Deseja realmente limpar a busca?')"
                     >Limpar</a>
                 </span>

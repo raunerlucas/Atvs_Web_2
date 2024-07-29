@@ -82,18 +82,10 @@ public class VendaController {
     }
 
     @GetMapping("list")
-    public ModelAndView vendaList(@RequestParam(required = false) String data,
-                                  @RequestParam(required = false) Long id, ModelMap model) {
+    public ModelAndView vendaList(@RequestParam(required = false) String data, ModelMap model) {
         List<Venda> vendas = new ArrayList<>();
         if (data != null && !data.isEmpty()) {
-            if (id != null)
-                vendas = ry.vendasByDataAndPessoa(LocalDate.parse(data), id);
-                /* TODO: Está incorreto preciso repensar nisso, tinho que ver como faça para devolver
-                 * essa lista de vendas para pessoa/datail mas aparetemente terei que fazer outro
-                 * endpoint para isso.
-                 */
-            else
-                vendas = ry.vendasByData(LocalDate.parse(data));
+            vendas = ry.vendasByData(LocalDate.parse(data));
             if (!vendas.isEmpty()) {
                 model.addAttribute("findPepl", vendas.size());
             } else {

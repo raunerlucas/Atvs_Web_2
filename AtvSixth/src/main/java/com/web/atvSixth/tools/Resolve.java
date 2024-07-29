@@ -52,6 +52,11 @@ public class Resolve {
         return ryVenda.vendasByPessoa(id);
     }
 
+    public List<Venda> listVendasByIdPessoa(LocalDate data, Long id) {
+        return ryVenda.vendasByDataAndPessoa(data, id);
+    }
+
+
     public ItemVenda newItemVenda(Long idProduto, Venda venda) {
         ItemVenda itemVenda = new ItemVenda();
         itemVenda.setProduto(ryProd.produto(idProduto));

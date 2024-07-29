@@ -1,6 +1,7 @@
 package com.web.atvSixth.controller.Pessoa;
 
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaJuridica;
+import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
 import com.web.atvSixth.tools.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +36,21 @@ public class PessoaJuridicaController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView venda(@PathVariable("id") Long id, ModelMap model) {
+    public ModelAndView venda(@PathVariable("id") Long id,
+                              @RequestParam(required = false) String data,
+                              ModelMap model) {
         model.addAttribute("pessoa", ry.pessoaJuridica(id));
-        model.addAttribute("vendas", r.listVendasByIdPessoa(id));
+        List<Venda> vendas;
+        if (data != null && !data.isEmpty()) {
+            vendas = r.listVendasByIdPessoa(LocalDate.parse(data), id);
+            if (!vendas.isEmpty()) {
+                model.addAttribute("findPepl", vendas.size());
+            } else {
+                model.addAttribute("mgs", "Nada Encontrado");
+            }
+        } else
+            vendas = r.listVendasByIdPessoa(id);
+        model.addAttribute("vendas", vendas);
         return new ModelAndView("Pessoa/detail");
     }
 
