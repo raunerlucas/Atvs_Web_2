@@ -1,0 +1,7 @@
+Pelo motivo de tamanho máximo de arquivos do moodle não aceitar
+acima de 20Mb não irei mais envia o arquivo por aqui.
+
+
+Favor verificar em https://github.com/raunerlucas
+
+Mais especificamente: https://github.com/raunerlucas/Atvs_Web_2/tree/main/AtvSixth

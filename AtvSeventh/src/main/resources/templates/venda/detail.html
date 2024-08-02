@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
+    <title>Venda</title>
+    <link rel="stylesheet" type="text/css" href="/vendas/style.css">
+</head>
+
+<body>
+<main>
+    <section class="container">
+        <div class="div-detalhes">
+            <h4 th:text="'Data: '+${venda.formtData()}"></h4>
+            <h3>Cliente: <a th:href="${'/'+venda.pessoa.nomeClasse()+'/'+venda.pessoa.getId()}"
+                            th:text="${venda.pessoa.getNome()}"></a></h3>
+        </div>
+        <div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="table-dark">
+                    <th>Id do Produto</th>
+                    <th>Descrição do Produto</th>
+                    <th>Valor do Produto</th>
+                    <th>Quantidade de Itens</th>
+                    <th>Valor do Itens</th>
+                </tr>
+                </thead>
+                <tr th:each="it : ${venda.getItensVenda()}">
+                    <td th:text="${it.produto.id}"></td>
+                    <td th:text="${it.produto.descricao}"></td>
+                    <td th:text="${it.produto.valor}+' R$'"></td>
+                    <td th:text="${it.quantidade}"></td>
+                    <td th:text="${it.total()}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-detalhes">
+            <h3 style="font-size: x-large" th:text="'Total:   '+${#numbers.formatCurrency(venda.total())}"></h3>
+        </div>
+    </section>
+</main>
+</body>
+</html>
