@@ -7,18 +7,18 @@
 </head>
 
 <body>
-<main th:with="isPF=${pessoa.getFirst().tipoObjeto('pessoaFisica')}">
+<main th:with="isPF=${pessoa.get(0).tipoObjeto('pessoaFisica')}">
     <section class="container">
         <div class="leaout-new">
             <h2 th:if="${!isPF}">Lista de Pessoas Juridica</h2>
             <h2 th:if="${isPF}">Lista de Pessoa Fisica</h2>
-            <a th:href="${'/'+pessoa.getFirst().nomeClasse()+'/form'}">
+            <a th:href="${'/'+pessoa.get(0).nomeClasse()+'/form'}">
                 <button class="btn btn-primary btn-lg" th:if="${!isPF}">NOVA Pessoa Juridica</button>
                 <button class="btn btn-primary btn-lg" th:if="${isPF}">NOVA Pessoa Fisica</button>
             </a>
         </div>
         <div class="leaout-new">
-            <form th:action="${'/' + pessoa.getFirst().nomeClasse() + '/list'}" method="get">
+            <form th:action="${'/' + pessoa.get(0).nomeClasse() + '/list'}" method="get">
                 <input type="text" name="name" placeholder="Nome">
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </form>
@@ -26,7 +26,7 @@
                 <span th:if="${findPepl != null}">
                     <h5 th:text="${'Encontrados: '+findPepl}"></h5>
                     <a class="btn btn-danger"
-                       th:href="${'/' + pessoa.getFirst().nomeClasse() + '/list'}"
+                       th:href="${'/' + pessoa.get(0).nomeClasse() + '/list'}"
                        onclick="return window.confirm('Deseja realmente limpar a busca?')"
                     >Limpar</a>
                 </span>
