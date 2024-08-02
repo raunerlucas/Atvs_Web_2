@@ -12,4 +12,9 @@ public class PagesController {
     public String home() {
         return "pages/home";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "pages/login";
+    }
 }
