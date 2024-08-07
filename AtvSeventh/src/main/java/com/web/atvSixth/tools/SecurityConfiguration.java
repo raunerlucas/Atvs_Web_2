@@ -15,8 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration //classe de configuração
-@EnableWebSecurity //indica ao Spring que serão definidas configurações personalizadas de segurança
+@Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -24,21 +24,22 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(
                         customizer ->
                                 customizer
-                                        .requestMatchers("/pessoafisica/form").permitAll()
+                                        .requestMatchers("/**css/**", "/pages/home",
+                                                "/pessoafisica/form","pessoajuridica/form").permitAll()
                                         .requestMatchers("/pessoafisica/list").hasAnyRole("ADMIN")
                                         .requestMatchers(HttpMethod.POST,"/pessoafisica/save").permitAll()
-                                        .anyRequest() //define que a configuração é válida para qualquer requisição.
-                                        .authenticated() //define que o usuário precisa estar autenticado.
+                                        .anyRequest()
+                                        .authenticated()
                 )
                 .formLogin(customizer ->
                         customizer
-                                .loginPage("/login") //passamos como parâmetro a URL para acesso à página de login que criamos
-                                .defaultSuccessUrl("/pessoafisica/form", true)
-                                .permitAll() //define que essa página pode ser acessada por todos, independentemente do usuário estar autenticado ou não.
+                                .loginPage("/pages/login")
+                                .defaultSuccessUrl("/produto/comprar", true)
+                                .permitAll()
                 )
-                .httpBasic(withDefaults()) //configura a autenticação básica (usuário e senha)
-                .logout(LogoutConfigurer::permitAll) //configura a funcionalidade de logout no Spring Security.
-                .rememberMe(withDefaults()); //permite que os usuários permaneçam autenticados mesmo após o fechamento do navegador
+                .httpBasic(withDefaults())
+                .logout(LogoutConfigurer::permitAll)
+                .rememberMe(withDefaults());
         return http.build();
     }
 
