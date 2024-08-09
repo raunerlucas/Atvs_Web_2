@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Site de Vendas</title>
+</head>
+<body>
+<main>
+    <section class="container">
+        <h1>Home</h1>
+        <p>Seja bem-vindo ao site de vendas.</p>
+    </section>
+    <section class="container">
+        <a href="/venda/form">
+            <button type="button" class="btn btn-outline-primary">
+                Carrinho de Compras
+            </button>
+        </a>
+    </section>
+</main>
+</body>
+</html>

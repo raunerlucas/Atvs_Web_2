@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
+    <title>Lista de produtos</title>
+    <link rel="stylesheet" type="text/css" href="/css/produto/style.css">
+</head>
+<body>
+<main>
+    <section class="produto-container">
+        <div class="leaout-new">
+            <h3>Lista de produtos</h3>
+            <a href="form">
+                <button class="btn btn-primary btn-lg">Novo Produto</button>
+            </a>
+        </div>
+        <div class="leaout-new">
+            <form th:action="${'/produto/list'}" method="get">
+                <input type="text" name="name" placeholder="Nome">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+            <div class="leaout-new">
+                <span th:if="${findPepl != null}">
+                    <h5 th:text="${'Encontrados: '+findPepl}"></h5>
+                    <a class="btn btn-danger"
+                       th:href="${'/produto/list'}"
+                       onclick="return window.confirm('Deseja realmente limpar a busca?')"
+                    >Limpar</a>
+                </span>
+                <h5 th:text="${mgs}" th:if="${mgs}"></h5>
+            </div>
+        </div>
+        <div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="table-dark">
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th colspan="2">Ações</th>
+                </tr>
+                </thead>
+                <tr th:each="p : ${produtos}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.descricao}"></td>
+                    <td th:text="${p.valor}+' R$'"></td>
+                    <td><a th:href="@{/produto/edit/{id}(id=${p.id})}">
+                        <button class="btn btn-outline-primary">Editar</button>
+                    </a></td>
+                    <td><a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+                           th:href="@{/produto/remove/{id}(id=${p.id})}">
+                        <button class="btn btn-outline-danger">Deletar</button>
+                    </a></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

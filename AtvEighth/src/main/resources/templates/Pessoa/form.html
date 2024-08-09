@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
+    <title>Lista de Pessoas</title>
+    <link rel="stylesheet" type="text/css" href="/css/pessoas/style.css">
+</head>
+
+<body>
+<main th:with="isPF=${pessoa.tipoObjeto('pessoaFisica')}">
+    <section class="container">
+        <div class="div-title">
+            <h1 th:if="${isPF}">Cadastrar Nova Pessoa Fisica</h1>
+            <h1 th:if="${!isPF}">Cadastrar Nova Pessoa Juridica</h1>
+        </div>
+        <div>
+            <form th:action="${pessoa.id == null ? '/' + pessoa.nomeClasse() + '/save' : '/' + pessoa.nomeClasse() + '/update'}"
+                  th:object="${pessoa}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{nome}"
+                           placeholder="Nome"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('nome')}"
+                           th:errors="*{nome}">
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Telefone</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{telefone}"
+                           placeholder="Telefone"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('telefone')}"
+                           th:errors="*{telefone}">
+                    </label>
+                </div>
+                <div class="mb-3"
+                     th:if="${!isPF}">
+                    <label class="form-label">Razao Social</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{razaoSocial}"
+                           placeholder="Razão Social"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('razaoSocial')}"
+                           th:errors="*{razaoSocial}">
+                    </label>
+                </div>
+                <div class="mb-3"
+                     th:if="${isPF}">
+                    <label class="form-label">CPF</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{cpf}"
+                           placeholder="CPF"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('cpf')}"
+                           th:errors="*{cpf}">
+                    </label>
+                </div>
+                <div class="mb-3"
+                     th:if="${!isPF}">
+                    <label class="form-label">CNPJ</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{cnpj}"
+                           placeholder="CNPJ"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('cnpj')}"
+                           th:errors="*{cnpj}">
+                    </label>
+                </div>
+                <input class="btn btn-primary btn-lg" type="submit" value="Salvar">
+            </form>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Login Site de Vendas</title>
+</head>
+<body>
+<main>
+    <section class="container leaout-login">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Usuário/senha inválidos!</div>
+        </div>
+        <div th:if="${param.logout}">
+            <div class="alert alert-warning">Você se Deslogou!</div>
+        </div>
+        <h4 th:text="${msg}" th:if="${msg}" class="alert alert-success"></h4>
+
+        <div class="div-title">
+            <div>
+                <form th:action="@{login}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Login:</label>
+                        <input class="form-control" type="text"
+                               name="username" placeholder="Usuário"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Senha:</label>
+                        <input class="form-control"
+                               type="password" name="password" placeholder="Senha"/>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Cadastro :</h6>
+                        <span>
+                            <a href="/pessoafisica/form">Sou Cliente</a>
+                            <a href="/pessoajuridica/form">Sou Empresa</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
