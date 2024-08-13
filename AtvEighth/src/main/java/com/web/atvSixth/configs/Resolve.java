@@ -1,4 +1,4 @@
-package com.web.atvSixth.tools;
+package com.web.atvSixth.configs;
 
 import com.web.atvSixth.model.Entity.ItemVenda;
 import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;

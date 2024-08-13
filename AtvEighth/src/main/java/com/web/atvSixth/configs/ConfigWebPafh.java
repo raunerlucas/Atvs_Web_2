@@ -1,7 +1,6 @@
-package com.web.atvSixth.tools;
+package com.web.atvSixth.configs;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

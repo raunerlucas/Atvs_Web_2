@@ -4,7 +4,7 @@ import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.VendaRepository;
-import com.web.atvSixth.tools.Resolve;
+import com.web.atvSixth.configs.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -16,7 +16,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 

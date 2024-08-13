@@ -1,13 +1,11 @@
 package com.web.atvSixth.controller.Pessoa;
 
 
-import com.web.atvSixth.controller.VendaController;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
-import com.web.atvSixth.tools.Resolve;
+import com.web.atvSixth.configs.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
