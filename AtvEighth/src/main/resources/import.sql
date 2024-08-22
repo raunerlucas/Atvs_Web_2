@@ -21,3 +21,11 @@ insert into venda (data, pessoa_id) values ('2024-03-09',2);
 insert into item_venda (quantidade, produto_id, venda_id) values (1.0, 1, 2);
 insert into item_venda (quantidade, produto_id, venda_id) values (2.5, 4, 2);
 
+insert into role(nome) values ('ROLE_ADMIN')
+insert into role(nome) values ('ROLE_USER')
+
+insert into usuario (login, password) values('user','$2a$10$ge.D0BP8Ae3AkS4dxMWMX.nMJkGtnBd2843Kz7bpBoyEtwTadmbGS')
+insert into usuario (login, password) values('admin','$2a$10$cufo7kEnAD8XivEv1A7grOxUq/XCd5vdPhxk4bbsm.apG/vUxfEO2')
+
+insert into usuario_roles (roles_id,usuarios_id) values (1,2)
+insert into usuario_roles (roles_id,usuarios_id) values (2,1)
