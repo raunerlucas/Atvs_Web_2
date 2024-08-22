@@ -1,14 +1,18 @@
 package com.web.atvSixth.controller.Pessoa;
 
 
+import com.web.atvSixth.configs.Resolve;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
-import com.web.atvSixth.configs.Resolve;
+import com.web.atvSixth.model.Repository.RoleRepository;
+import com.web.atvSixth.model.Repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Slf4j
 @Transactional
 @Controller
 @RequestMapping("pessoafisica")
@@ -31,6 +36,12 @@ public class PessoaFisicaController {
 
     @Autowired
     Resolve r;
+
+    @Autowired
+    RoleRepository ryRole;
+
+    @Autowired
+    UsuarioRepository ryUsuario;
 
     @GetMapping("/form")
     public ModelAndView form(ModelMap model, PessoaFisica pessoaF) {
@@ -84,6 +95,15 @@ public class PessoaFisicaController {
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("pessoa") @Valid PessoaFisica pessoa, BindingResult bindingResult, ModelMap m, RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) return form(m, pessoa);
+        /**
+         * TODO: Implementar isso nas outras classes,
+         *  colocar em "Resolve"
+        **/
+        var user = pessoa.getUsuario();
+        user.getRoles().add(ryRole.role(1L));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        ryUsuario.save(user);
+
         ry.save(pessoa);
         attributes.addFlashAttribute("msg", "Cadastrado Com Sucesso!");
         return new ModelAndView("redirect:/pessoafisica/list");

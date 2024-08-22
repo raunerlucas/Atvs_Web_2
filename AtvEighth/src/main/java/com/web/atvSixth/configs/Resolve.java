@@ -3,7 +3,6 @@ package com.web.atvSixth.configs;
 import com.web.atvSixth.model.Entity.ItemVenda;
 import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;
 import com.web.atvSixth.model.Entity.Venda;
-import com.web.atvSixth.model.Repository.ItemVendaRepository;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
 import com.web.atvSixth.model.Repository.ProdutoRepository;
@@ -27,9 +26,6 @@ public class Resolve {
 
     @Autowired
     ProdutoRepository ryProd;
-
-    @Autowired
-    ItemVendaRepository ryItemVenda;
 
     @Autowired
     VendaRepository ryVenda;

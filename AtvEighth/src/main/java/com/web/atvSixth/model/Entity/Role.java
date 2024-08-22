@@ -22,6 +22,7 @@ public class Role implements Serializable, GrantedAuthority {
 
     public Role(){ usuarios = new ArrayList<>();
     }
+
     @Override
     public String getAuthority() {
         return nome;

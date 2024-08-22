@@ -3,7 +3,7 @@ package com.web.atvSixth.model.Entity.Pesssoa;
 import com.web.atvSixth.model.Entity.Usuario;
 import com.web.atvSixth.model.Entity.Venda;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -36,6 +36,7 @@ public abstract class Pessoa implements Serializable {
     private List<Venda> vendas = new ArrayList<>();
 
     @OneToOne
+    @Valid
     private Usuario usuario;
 
     public void addVenda(Venda venda) {

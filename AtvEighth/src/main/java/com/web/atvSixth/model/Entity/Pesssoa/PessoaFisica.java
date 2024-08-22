@@ -1,15 +1,15 @@
 package com.web.atvSixth.model.Entity.Pesssoa;
 
 import jakarta.persistence.Entity;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Data
 @Entity
+@ToString(callSuper = true)
 public class PessoaFisica extends Pessoa implements Serializable {
 
     @Pattern(regexp = "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{11})$",

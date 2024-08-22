@@ -8,11 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -30,7 +27,8 @@ public class SecurityConfiguration {
                         customizer ->
                                 customizer
                                         .requestMatchers("/**css/**", "/pages/home",
-                                                "/pessoafisica/form", "/pessoajuridica/form").permitAll()
+                                                "/pessoafisica/form", "/pessoajuridica/form",
+                                                "produto/comprar").permitAll()
                                         .requestMatchers("/pessoafisica/list", "/pessoajuridica/list", "/produto/list").hasAnyRole("ADMIN")
                                         .requestMatchers(HttpMethod.POST, "/pessoafisica/save", "/pessoajuridica/save").permitAll()
                                         .anyRequest()

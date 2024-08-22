@@ -19,6 +19,30 @@
                   th:object="${pessoa}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="mb-3">
+                    <label class="form-label">Login</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{usuario.login}"
+                           placeholder="Login"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('usuario.login')}"
+                           th:errors="*{usuario.login}">
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Senha</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{usuario.password}"
+                           placeholder="Telefone"
+                           th:errorclass="is-invalid">
+                    <label class="invalid-feedback msgError"
+                           th:if="${#fields.hasErrors('usuario.password')}"
+                           th:errors="*{usuario.password}">
+                    </label>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Nome</label>
                     <input type="text"
                            class="form-control"
