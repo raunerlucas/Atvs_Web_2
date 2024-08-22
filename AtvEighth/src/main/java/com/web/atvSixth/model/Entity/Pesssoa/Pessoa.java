@@ -1,5 +1,6 @@
 package com.web.atvSixth.model.Entity.Pesssoa;
 
+import com.web.atvSixth.model.Entity.Usuario;
 import com.web.atvSixth.model.Entity.Venda;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
@@ -33,6 +34,9 @@ public abstract class Pessoa implements Serializable {
 
     @OneToMany(mappedBy = "pessoa")
     private List<Venda> vendas = new ArrayList<>();
+
+    @OneToOne
+    private Usuario usuario;
 
     public void addVenda(Venda venda) {
         vendas.add(venda);
