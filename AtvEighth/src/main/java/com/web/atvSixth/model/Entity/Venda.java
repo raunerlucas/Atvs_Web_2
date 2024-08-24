@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.Objects;
 @Scope("session")
 @Entity
 @Data
+@ToString(exclude = {"itensVenda", "pessoa"})
 public class Venda implements Serializable {
 
     @Id

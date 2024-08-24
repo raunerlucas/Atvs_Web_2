@@ -15,7 +15,7 @@ public class UsuarioRepository {
     public Usuario usuario(String login) {
         if (login.isBlank())
             return null;
-        var query = em.createQuery("from Usuario u where u.login = :login", Usuario.class);
+        var query = em.createQuery("from Usuario u where lower(u.login) = lower(:login)", Usuario.class);
         query.setParameter("login", login);
         return query.getSingleResult();
     }
@@ -25,10 +25,12 @@ public class UsuarioRepository {
     }
 
     public void save(Usuario usuario){
+        usuario.setLogin(usuario.getLogin().toLowerCase());
         em.persist(usuario);
     }
 
     public void alterUsuario(Usuario usuario){
+        usuario.setLogin(usuario.getLogin().toLowerCase());
         em.merge(usuario);
     }
 

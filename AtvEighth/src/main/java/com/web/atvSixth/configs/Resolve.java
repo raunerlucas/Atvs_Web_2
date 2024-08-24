@@ -6,9 +6,12 @@ import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
 import com.web.atvSixth.model.Repository.ProdutoRepository;
+import com.web.atvSixth.model.Repository.RoleRepository;
+import com.web.atvSixth.model.Repository.UsuarioRepository;
 import com.web.atvSixth.model.Repository.VendaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -29,6 +32,12 @@ public class Resolve {
 
     @Autowired
     VendaRepository ryVenda;
+
+    @Autowired
+    RoleRepository ryRole;
+
+    @Autowired
+    UsuarioRepository ryUsuario;
 
     public Pessoa isPessoa(Long id) {
         Pessoa pessoa = ryPF.pessoaFisica(id);
@@ -51,7 +60,6 @@ public class Resolve {
     public List<Venda> listVendasByIdPessoa(LocalDate data, Long id) {
         return ryVenda.vendasByDataAndPessoa(data, id);
     }
-
 
     public ItemVenda newItemVenda(Long idProduto, Venda venda) {
         ItemVenda itemVenda = new ItemVenda();
@@ -85,5 +93,13 @@ public class Resolve {
         List<ItemVenda> itensVenda = venda.getItensVenda();
         itensVenda.removeIf(itemVenda -> itemVenda.getProduto().getId().equals(idProduto));
         return itensVenda;
+    }
+
+    public void usuario(Pessoa pessoa) {
+        var user = pessoa.getUsuario();
+        user.getRoles().add(ryRole.role(1L));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        ryUsuario.save(user);
+
     }
 }

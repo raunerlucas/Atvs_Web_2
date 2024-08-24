@@ -2,6 +2,7 @@ package com.web.atvSixth.model.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
+@ToString(exclude = "usuarios")
 public class Role implements Serializable, GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

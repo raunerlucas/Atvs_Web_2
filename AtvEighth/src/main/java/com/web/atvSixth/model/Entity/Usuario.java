@@ -3,6 +3,7 @@ package com.web.atvSixth.model.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,12 +14,14 @@ import java.util.List;
 
 @Data
 @Entity
+@ToString
 public class Usuario implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String login;
 
     @NotBlank

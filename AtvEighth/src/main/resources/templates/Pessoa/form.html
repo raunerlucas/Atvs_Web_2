@@ -11,15 +11,18 @@
 <main th:with="isPF=${pessoa.tipoObjeto('pessoaFisica')}">
     <section class="container">
         <div class="div-title">
-            <h1 th:if="${isPF}">Cadastrar Nova Pessoa Fisica</h1>
-            <h1 th:if="${!isPF}">Cadastrar Nova Pessoa Juridica</h1>
+            <h1 th:if="${isPF && pessoa.id == null}">Cadastrar Nova Pessoa Fisica</h1>
+            <h1 th:if="${!isPF && pessoa.id == null}">Cadastrar Nova Pessoa Juridica</h1>
+            <h1 th:if="${isPF && pessoa.id != null}">Atualizar Pessoa Fisica</h1>
+            <h1 th:if="${!isPF && pessoa.id != null}">Atualizar Pessoa Juridica</h1>
         </div>
         <div>
             <form th:action="${pessoa.id == null ? '/' + pessoa.nomeClasse() + '/save' : '/' + pessoa.nomeClasse() + '/update'}"
                   th:object="${pessoa}" method="post">
                 <input type="hidden" th:field="*{id}">
-                <div class="mb-3">
-                    <label class="form-label">Login</label>
+                <input type="hidden" th:field="*{usuario.id}">
+                <div class="mb-3" th:if="${pessoa.usuario.password == null}">
+                    <label class="form-label" >Login</label>
                     <input type="text"
                            class="form-control"
                            th:field="*{usuario.login}"
@@ -30,7 +33,7 @@
                            th:errors="*{usuario.login}">
                     </label>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" th:if="${pessoa.usuario.password == null}">
                     <label class="form-label">Senha</label>
                     <input type="text"
                            class="form-control"

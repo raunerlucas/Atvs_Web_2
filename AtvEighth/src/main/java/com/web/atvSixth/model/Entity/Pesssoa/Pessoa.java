@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
@@ -15,11 +16,9 @@ import java.util.List;
 
 @Data
 @Entity
+@ToString
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Pessoa implements Serializable {
-    /*  @Id
-      @GeneratedValue(strategy = GenerationType.AUTO)
-      private Long id;*/
     @Id
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")

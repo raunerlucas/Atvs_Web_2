@@ -13,9 +13,6 @@ import org.springframework.stereotype.Repository;
 @Transactional
 @Repository
 public class UsuarioDetailsConfig implements UserDetailsService{
-
-    // TODO: Verificar oq está acontecendo.
-
     @Autowired
     UsuarioRepository repository;
 

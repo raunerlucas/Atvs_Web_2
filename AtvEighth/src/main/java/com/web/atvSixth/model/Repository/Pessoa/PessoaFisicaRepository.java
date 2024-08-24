@@ -23,12 +23,12 @@ public class PessoaFisicaRepository {
     }
 
     public List<PessoaFisica> pessoasFisicas() {
-        Query query = em.createQuery("from PessoaFisica");
+        Query query = em.createQuery("from PessoaFisica", PessoaFisica.class);
         return query.getResultList();
     }
 
     public List<PessoaFisica> pessoasFisicasByName(String name) {
-        Query query = em.createQuery("from PessoaFisica pf where lower(pf.nome) like lower(:name)");
+        Query query = em.createQuery("from PessoaFisica pf where lower(pf.nome) like lower(:name)", PessoaFisica.class);
         query.setParameter("name", "%" + name + "%");
         return query.getResultList();
     }

@@ -5,14 +5,9 @@ import com.web.atvSixth.configs.Resolve;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
-import com.web.atvSixth.model.Repository.RoleRepository;
-import com.web.atvSixth.model.Repository.UsuarioRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,8 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Slf4j
 @Transactional
 @Controller
 @RequestMapping("pessoafisica")
@@ -36,12 +29,6 @@ public class PessoaFisicaController {
 
     @Autowired
     Resolve r;
-
-    @Autowired
-    RoleRepository ryRole;
-
-    @Autowired
-    UsuarioRepository ryUsuario;
 
     @GetMapping("/form")
     public ModelAndView form(ModelMap model, PessoaFisica pessoaF) {
@@ -69,11 +56,11 @@ public class PessoaFisicaController {
     }
 
     @GetMapping("list")
-    public ModelAndView list(ModelMap model, HttpServletRequest request) {
-        String nameParam = request.getParameter("name");
+    public ModelAndView list(ModelMap model,
+                             @RequestParam(required = false) String name) {
         List<PessoaFisica> pessFis = new ArrayList<>();
-        if (nameParam != null && !nameParam.isEmpty()) {
-            pessFis = ry.pessoasFisicasByName(nameParam);
+        if (name != null && !name.isEmpty()) {
+            pessFis = ry.pessoasFisicasByName(name);
             if (!pessFis.isEmpty()) {
                 model.addAttribute("findPepl", pessFis.size());
             } else {
@@ -88,30 +75,28 @@ public class PessoaFisicaController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("pessoa", ry.pessoaFisica(id));
+        PessoaFisica pessoaFisica = ry.pessoaFisica(id);
+        model.addAttribute("pessoa", pessoaFisica);
         return new ModelAndView("Pessoa/form", model);
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute("pessoa") @Valid PessoaFisica pessoa, BindingResult bindingResult, ModelMap m, RedirectAttributes attributes) {
+    public ModelAndView save(@ModelAttribute("pessoa") @Valid PessoaFisica pessoa,
+                             BindingResult bindingResult,
+                             ModelMap m, RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) return form(m, pessoa);
-        /**
-         * TODO: Implementar isso nas outras classes,
-         *  colocar em "Resolve"
-        **/
-        var user = pessoa.getUsuario();
-        user.getRoles().add(ryRole.role(1L));
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        ryUsuario.save(user);
-
+        r.usuario(pessoa);
         ry.save(pessoa);
         attributes.addFlashAttribute("msg", "Cadastrado Com Sucesso!");
         return new ModelAndView("redirect:/pessoafisica/list");
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@ModelAttribute("pessoa") @Valid PessoaFisica pessoaFisica, BindingResult bindingResult, ModelMap m) {
-        if (bindingResult.hasErrors()) return form(m, pessoaFisica);
+    public ModelAndView update(@ModelAttribute("pessoa") @Valid PessoaFisica pessoaFisica,
+                               BindingResult bindingResult, ModelMap m) {
+        if (bindingResult.hasErrors())
+            if (!bindingResult.hasFieldErrors("usuario.login") && !bindingResult.hasFieldErrors("usuario.password"))
+                return form(m, pessoaFisica);
         ry.update(pessoaFisica);
         return new ModelAndView("redirect:/pessoafisica/" + pessoaFisica.getId());
     }
