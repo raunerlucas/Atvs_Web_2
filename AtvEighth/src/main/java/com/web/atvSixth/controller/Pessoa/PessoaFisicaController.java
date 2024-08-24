@@ -87,16 +87,17 @@ public class PessoaFisicaController {
         if (bindingResult.hasErrors()) return form(m, pessoa);
         r.usuario(pessoa);
         ry.save(pessoa);
-        attributes.addFlashAttribute("msg", "Cadastrado Com Sucesso!");
-        return new ModelAndView("redirect:/pessoafisica/list");
+        attributes.addFlashAttribute("msg", "Bem vindo "+pessoa.getUsuario().getLogin()+"!");
+        return new ModelAndView("redirect:/pages/login");
     }
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("pessoa") @Valid PessoaFisica pessoaFisica,
                                BindingResult bindingResult, ModelMap m) {
-        if (bindingResult.hasErrors())
-            if (!bindingResult.hasFieldErrors("usuario.login") && !bindingResult.hasFieldErrors("usuario.password"))
-                return form(m, pessoaFisica);
+        if (bindingResult.hasErrors()
+                && !bindingResult.hasFieldErrors("usuario.login")
+                && !bindingResult.hasFieldErrors("usuario.password"))
+            return form(m, pessoaFisica);
         ry.update(pessoaFisica);
         return new ModelAndView("redirect:/pessoafisica/" + pessoaFisica.getId());
     }

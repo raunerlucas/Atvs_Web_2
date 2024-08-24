@@ -1,9 +1,9 @@
 package com.web.atvSixth.controller.Pessoa;
 
+import com.web.atvSixth.configs.Resolve;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaJuridica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaJuridicaRepository;
-import com.web.atvSixth.configs.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -55,12 +55,6 @@ public class PessoaJuridicaController {
         return new ModelAndView("Pessoa/detail");
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("pessoa", ry.pessoaJuridica(id));
-        return new ModelAndView("Pessoa/form", model);
-    }
-
     @GetMapping("list")
     public ModelAndView list(ModelMap model, HttpServletRequest request) {
         String nameParam = request.getParameter("name");
@@ -79,19 +73,27 @@ public class PessoaJuridicaController {
         return new ModelAndView("Pessoa/list");
     }
 
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("pessoa", ry.pessoaJuridica(id));
+        return new ModelAndView("Pessoa/form", model);
+    }
+
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("pessoa") @Valid PessoaJuridica pessoa, BindingResult bindingResult, ModelMap m, RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) return form(m, pessoa);
-
+        r.usuario(pessoa);
         ry.save(pessoa);
-        attributes.addFlashAttribute("msg", "Cadastrado Com Sucesso!");
-        return new ModelAndView("redirect:/pessoajuridica/list");
+        attributes.addFlashAttribute("msg", "Bem vindo "+pessoa.getUsuario().getLogin()+"!");
+        return new ModelAndView("redirect:/pages/login");
     }
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("pessoa") @Valid PessoaJuridica pessoa, BindingResult bindingResult, ModelMap m) {
-        if (bindingResult.hasErrors()) return form(m, pessoa);
-
+        if (bindingResult.hasErrors()
+                && !bindingResult.hasFieldErrors("usuario.login")
+                && !bindingResult.hasFieldErrors("usuario.password"))
+            return form(m, pessoa);
         ry.update(pessoa);
         return new ModelAndView("redirect:/pessoajuridica/" + pessoa.getId());
     }

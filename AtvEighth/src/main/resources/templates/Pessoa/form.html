@@ -22,12 +22,14 @@
                 <input type="hidden" th:field="*{id}">
                 <input type="hidden" th:field="*{usuario.id}">
                 <div class="mb-3" th:if="${pessoa.usuario.password == null}">
-                    <label class="form-label" >Login</label>
+                    <label class="form-label">Login</label>
                     <input type="text"
-                           class="form-control"
+                           class="form-control login-input"
                            th:field="*{usuario.login}"
                            placeholder="Login"
-                           th:errorclass="is-invalid">
+                           th:errorclass="is-invalid"
+                           required
+                    >
                     <label class="invalid-feedback msgError"
                            th:if="${#fields.hasErrors('usuario.login')}"
                            th:errors="*{usuario.login}">
@@ -39,7 +41,8 @@
                            class="form-control"
                            th:field="*{usuario.password}"
                            placeholder="Telefone"
-                           th:errorclass="is-invalid">
+                           th:errorclass="is-invalid"
+                           required>
                     <label class="invalid-feedback msgError"
                            th:if="${#fields.hasErrors('usuario.password')}"
                            th:errors="*{usuario.password}">

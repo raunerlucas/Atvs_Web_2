@@ -72,6 +72,10 @@ td{
     font-size: large;
 }
 
+.login-input{
+    text-transform: lowercase;
+}
+
 .form-label {
     font-weight: bolder;
 }
