@@ -18,6 +18,13 @@ public class PessoaFisicaRepository {
         em.persist(pFisica);
     }
 
+    public PessoaFisica pessoaFisicaByUsuarioId(Long id) {
+        Query query = em.createQuery("from PessoaFisica pf where pf.usuario.id = :id", PessoaFisica.class);
+        query.setParameter("id", id);
+        return (PessoaFisica) query.getSingleResult();
+    }
+
+
     public PessoaFisica pessoaFisica(Long id) {
         return em.find(PessoaFisica.class, id);
     }

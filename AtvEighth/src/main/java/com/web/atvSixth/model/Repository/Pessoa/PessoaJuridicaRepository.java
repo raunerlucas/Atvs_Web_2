@@ -18,6 +18,12 @@ public class PessoaJuridicaRepository {
         em.persist(pJuridica);
     }
 
+    public PessoaJuridica pessoaJuridicaByUsuarioId(Long id) {
+        Query query = em.createQuery("from PessoaJuridica pj where pj.usuario.id = :id");
+        query.setParameter("id", id);
+        return (PessoaJuridica) query.getSingleResult();
+    }
+
     public PessoaJuridica pessoaJuridica(Long id) {
         return em.find(PessoaJuridica.class, id);
     }

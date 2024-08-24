@@ -1,10 +1,10 @@
 package com.web.atvSixth.controller;
 
+import com.web.atvSixth.configs.Resolve;
 import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.VendaRepository;
-import com.web.atvSixth.configs.Resolve;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Scope("request")
@@ -97,4 +98,21 @@ public class VendaController {
         return new ModelAndView("venda/list");
     }
 
+    @GetMapping("list/{pessoaId}")
+    public ModelAndView vendaList(@PathVariable("pessoaId") Long pessoaId,
+                                  @RequestParam(required = false) String data, ModelMap model) {
+        List<Venda> vendas = new ArrayList<>();
+        if (data != null && !data.isEmpty()) {
+            vendas = ry.vendasByDataAndPessoa(LocalDate.parse(data), pessoaId);
+            if (!vendas.isEmpty()) {
+                model.addAttribute("findPepl", vendas.size());
+            } else {
+                model.addAttribute("mgs", "Nada Encontrado");
+            }
+        }
+        if (vendas.isEmpty())
+            vendas = ry.vendasByPessoa(pessoaId);
+        model.addAttribute("vendas", vendas);
+        return new ModelAndView("venda/list");
+    }
 }
