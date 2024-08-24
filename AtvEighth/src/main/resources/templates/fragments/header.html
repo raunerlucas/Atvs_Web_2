@@ -25,22 +25,11 @@
                     <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            Pessoa
+                            Pessoa Cadastradas
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/pessoafisica/list">Pessoa Fisica</a></li>
                             <li><a class="dropdown-item" href="/pessoajuridica/list">Pessoa Juridica</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Olá <strong sec:authentication="name"></strong>
-                        </a>
-                        <ul>
-                            <form th:action="@{/logout}" class="dropdown-menu" method="post">
-                                <button type="submit" class="btn btn-outline-danger btnLogout">Sair</button>
-                            </form>
                         </ul>
                     </li>
 
@@ -54,6 +43,22 @@
                             </svg>
                             <span th:text="${session.venda?.getItensVenda?.size() ?: 0}">0</span>
                         </a>
+                    </li>
+
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <strong sec:authentication="name"></strong>
+                        </a>
+                        <ul>
+                            <form th:action="@{/logout}" class="dropdown-menu" method="post">
+                                <button type="submit" class="btn btn-outline-danger btnLogout material-symbols-outlined">
+                                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+                                    logout
+                                </button>
+                            </form>
+                        </ul>
+
                     </li>
                 </ul>
                 <!--
