@@ -10,6 +10,10 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -34,7 +38,6 @@ public class VendaController {
 
     @Autowired
     private Resolve r;
-
 
     @GetMapping("/form")
     public String form(Model model) {
@@ -98,9 +101,10 @@ public class VendaController {
         return new ModelAndView("venda/list");
     }
 
-    @GetMapping("list/{pessoaId}")
-    public ModelAndView vendaList(@PathVariable("pessoaId") Long pessoaId,
-                                  @RequestParam(required = false) String data, ModelMap model) {
+
+    @GetMapping("/comprasUser")
+    public ModelAndView vendaListPessoa(@RequestParam(required = false) String data, ModelMap model) {
+        Long pessoaId = getPessoaUser().getId();
         List<Venda> vendas = new ArrayList<>();
         if (data != null && !data.isEmpty()) {
             vendas = ry.vendasByDataAndPessoa(LocalDate.parse(data), pessoaId);
@@ -113,6 +117,18 @@ public class VendaController {
         if (vendas.isEmpty())
             vendas = ry.vendasByPessoa(pessoaId);
         model.addAttribute("vendas", vendas);
-        return new ModelAndView("venda/list");
+        return new ModelAndView("venda/minhasCompras");
     }
+
+    private Pessoa getPessoaUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            UserDetails userDetails = (User) authentication.getPrincipal();
+            System.out.println(userDetails);
+            Long userId = 1L;
+            return r.pessoaUser(userId);
+        }
+        return null;
+    }
+
 }

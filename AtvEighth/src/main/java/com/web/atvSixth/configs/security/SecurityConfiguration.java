@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                                         .requestMatchers("/**css/**", "/pages/home",
                                                 "/pessoafisica/form", "/pessoajuridica/form",
                                                 "produto/comprar").permitAll()
-                                        .requestMatchers("/pessoafisica/list", "/pessoajuridica/list", "/produto/list").hasAnyRole("ADMIN")
+                                        .requestMatchers("/pessoafisica/list", "/pessoajuridica/list", "/produto/list", "/venda/list").hasAnyRole("ADMIN")
                                         .requestMatchers(HttpMethod.POST, "/pessoafisica/save", "/pessoajuridica/save").permitAll()
                                         .anyRequest()
                                         .authenticated()

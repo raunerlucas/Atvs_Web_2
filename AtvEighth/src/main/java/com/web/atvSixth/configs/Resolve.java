@@ -47,6 +47,14 @@ public class Resolve {
         return pessoa;
     }
 
+    public Pessoa pessoaUser(Long id) {
+        Pessoa pessoa = ryPF.pessoaFisicaByUsuarioId(id);
+        if (pessoa == null) {
+            pessoa = ryPJ.pessoaJuridicaByUsuarioId(id);
+        }
+        return pessoa;
+    }
+
     public List<? extends Pessoa> getPessoas() {
         List<? extends Pessoa> pessoas = ryPF.pessoasFisicas();
         pessoas.addAll((Collection) ryPJ.pessoasJuridicas());
@@ -100,6 +108,9 @@ public class Resolve {
         user.getRoles().add(ryRole.role(1L));
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         ryUsuario.save(user);
-
     }
+
+
+    // TODO: Falta colocar o user a Pessoa na sessão terminar de implementar a parte
+    //  do compras do user
 }
