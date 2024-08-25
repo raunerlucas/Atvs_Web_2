@@ -21,6 +21,9 @@ public class SecurityConfiguration {
     @Autowired
     UsuarioDetailsConfig usuarioDetailsConfig;
 
+    @Autowired
+    MyAuthenticationSuccessHandler successHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
@@ -37,7 +40,7 @@ public class SecurityConfiguration {
                 .formLogin(customizer ->
                         customizer
                                 .loginPage("/pages/login")
-                                .defaultSuccessUrl("/produto/comprar", true)
+                                .successHandler(successHandler)
                                 .permitAll()
                 )
                 .httpBasic(withDefaults())

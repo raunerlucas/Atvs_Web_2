@@ -109,8 +109,4 @@ public class Resolve {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         ryUsuario.save(user);
     }
-
-
-    // TODO: Falta colocar o user a Pessoa na sessão terminar de implementar a parte
-    //  do compras do user
 }

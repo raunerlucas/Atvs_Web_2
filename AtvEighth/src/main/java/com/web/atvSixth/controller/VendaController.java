@@ -10,10 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -103,8 +99,8 @@ public class VendaController {
 
 
     @GetMapping("/comprasUser")
-    public ModelAndView vendaListPessoa(@RequestParam(required = false) String data, ModelMap model) {
-        Long pessoaId = getPessoaUser().getId();
+    public ModelAndView vendaListPessoa(@RequestParam(required = false) String data, ModelMap model, HttpSession session) {
+        Long pessoaId = ((Pessoa) session.getAttribute("pessoaLogada")).getId();
         List<Venda> vendas = new ArrayList<>();
         if (data != null && !data.isEmpty()) {
             vendas = ry.vendasByDataAndPessoa(LocalDate.parse(data), pessoaId);
@@ -118,17 +114,6 @@ public class VendaController {
             vendas = ry.vendasByPessoa(pessoaId);
         model.addAttribute("vendas", vendas);
         return new ModelAndView("venda/minhasCompras");
-    }
-
-    private Pessoa getPessoaUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            UserDetails userDetails = (User) authentication.getPrincipal();
-            System.out.println(userDetails);
-            Long userId = 1L;
-            return r.pessoaUser(userId);
-        }
-        return null;
     }
 
 }
