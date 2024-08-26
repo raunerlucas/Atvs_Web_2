@@ -40,6 +40,10 @@
                     <p th:text="'Valor -- '+${v.total()}+'R$'"></p>
                 </button>
             </a>
+            <h4 th:if="${session.pessoaLogada == null}">
+                Você não é um consumidor<br>
+                Obs.: você não pode realizar compras com este perfil.
+            </h4>
         </div>
     </section>
 </main>

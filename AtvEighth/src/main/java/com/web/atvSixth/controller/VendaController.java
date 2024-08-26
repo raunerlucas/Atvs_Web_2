@@ -100,7 +100,8 @@ public class VendaController {
 
     @GetMapping("/comprasUser")
     public ModelAndView vendaListPessoa(@RequestParam(required = false) String data, ModelMap model, HttpSession session) {
-        Long pessoaId = ((Pessoa) session.getAttribute("pessoaLogada")).getId();
+        var pessoa = ((Pessoa) session.getAttribute("pessoaLogada"));
+        Long pessoaId = pessoa != null ? pessoa.getId() : 0;
         List<Venda> vendas = new ArrayList<>();
         if (data != null && !data.isEmpty()) {
             vendas = ry.vendasByDataAndPessoa(LocalDate.parse(data), pessoaId);

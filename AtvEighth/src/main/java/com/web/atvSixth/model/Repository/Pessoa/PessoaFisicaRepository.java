@@ -21,9 +21,8 @@ public class PessoaFisicaRepository {
     public PessoaFisica pessoaFisicaByUsuarioId(Long id) {
         Query query = em.createQuery("from PessoaFisica pf where pf.usuario.id = :id", PessoaFisica.class);
         query.setParameter("id", id);
-        return (PessoaFisica) query.getSingleResult();
+        return query.getResultList().isEmpty() ? null : (PessoaFisica) query.getResultList().get(0);
     }
-
 
     public PessoaFisica pessoaFisica(Long id) {
         return em.find(PessoaFisica.class, id);
