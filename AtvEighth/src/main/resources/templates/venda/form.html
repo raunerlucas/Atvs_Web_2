@@ -11,6 +11,7 @@
     <div class="container">
         <h1>Carrinho de Compras</h1>
         <h3 th:if="${itens.isEmpty()}">Se o Carrinho esta vazio!<br> Basta <a href="/produto/comprar">COMPRAR</a></h3>
+        <h3 th:text="${msg}" th:if="${msg}" class="alert alert-info"></h3>
     </div>
     <div th:if="${!itens.isEmpty()}" class="div-container">
         <div class="mb-3">
@@ -47,13 +48,8 @@
             <h3>Total: <span th:text="${session.venda.total()} + ' R$'"></span></h3>
             <form th:action="@{/venda/save}" method="post" th:object="${pessoa}">
                 <div class="mb-3">
-                    <label class="form-label">Selecione um Cliente</label>
-                    <select class="form-select" required name="id">
-                        <option th:each="p : ${pessoas}" th:text="${p.nome}" th:value="${p.id}"></option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">
+                    <h5 th:if="${session.pessoaLogada == null}">Você não é um Comsumidor</h5>
+                    <label class="form-label" th:if="${session.pessoaLogada != null}">
                         <input class="btn btn-success btn-lg" type="submit" value="Comprar">
                     </label>
                 </div>

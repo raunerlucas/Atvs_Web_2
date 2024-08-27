@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -44,13 +45,17 @@ public class VendaController {
     }
 
     @PostMapping("/save")
-    public ModelAndView setCliente(PessoaFisica pessoa, HttpSession session) {
-        var p = r.isPessoa(pessoa.getId());
+    public ModelAndView setCliente(HttpSession session, RedirectAttributes attribute) {
+        var p = (Pessoa) session.getAttribute("pessoaLogada");
+        if (p == null) {
+            attribute.addFlashAttribute("msg", "Consumidor não localizado");
+            return new ModelAndView("redirect:/venda/form");
+        }
         venda.setPessoa(p);
         venda.setData(LocalDate.now());
         ry.save(venda);
         session.removeAttribute("venda");
-        return new ModelAndView("redirect:/venda/list");
+        return new ModelAndView("redirect:/venda/comprasUser");
     }
 
     @GetMapping("/produto/add/{id}")
