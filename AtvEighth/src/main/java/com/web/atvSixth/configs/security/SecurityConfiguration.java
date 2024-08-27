@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                                 customizer
                                         .requestMatchers("/**css/**", "/pages/home",
                                                 "/pessoafisica/form", "/pessoajuridica/form",
-                                                "produto/comprar").permitAll()
+                                                "/produto/comprar", "/venda/produto/add/**").permitAll()
                                         .requestMatchers("/pessoafisica/list", "/pessoajuridica/list", "/produto/list", "/venda/list").hasAnyRole("ADMIN")
                                         .requestMatchers(HttpMethod.POST, "/pessoafisica/save", "/pessoajuridica/save").permitAll()
                                         .anyRequest()
