@@ -2,6 +2,16 @@ insert into produto (descricao, valor) values ('Arroz', 49.99);
 insert into produto (descricao, valor) values ('Feijão', 16.99);
 insert into produto (descricao, valor) values ('Farinha', 7.99);
 insert into produto (descricao, valor) values ('Carne Acém', 26.99);
+insert into produto (descricao, valor) values ('Óleo de Soja', 12.99);
+insert into produto (descricao, valor) values ('Açúcar', 8.49);
+insert into produto (descricao, valor) values ('Sal', 3.29);
+insert into produto (descricao, valor) values ('Café', 15.99);
+insert into produto (descricao, valor) values ('Macarrão', 5.79);
+insert into produto (descricao, valor) values ('Molho de Tomate', 4.59);
+insert into produto (descricao, valor) values ('Biscoito', 6.99);
+insert into produto (descricao, valor) values ('Leite', 7.29);
+insert into produto (descricao, valor) values ('Iogurte', 2.99);
+insert into produto (descricao, valor) values ('Pão de Forma', 8.99);
 
 insert into role(nome) values ('ROLE_USER');
 insert into role(nome) values ('ROLE_ADMIN');
