@@ -3,7 +3,7 @@
 <html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
 
 <head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
-    <title>Lista de Pessoas</title>
+    <title>Cadastro Mercado_em_Casa</title>
     <link rel="stylesheet" type="text/css" href="/css/pessoas/style.css">
 </head>
 
@@ -111,16 +111,15 @@
                            th:errors="*{cnpj}">
                     </label>
                 </div>
-                <input class="btn btn-primary btn-lg" type="submit" value="Salvar">
+                <div class="div-container">
+                    <input class="btn btn-primary btn-lg" type="submit" value="Salvar">
+                    <a th:href="${'/'}">
+                        <button type="button" class="btn btn-primary btn-lg warning">Cancelar</button>
+                    </a>
+                </div>
             </form>
-        </div>
-        <div class="div-container">
-            <a th:href="${'/'}">
-                <button class="btn btn-primary">Cancelar</button>
-            </a>
         </div>
     </section>
 </main>
-
 </body>
 </html>

@@ -2,14 +2,14 @@
 <html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
 
 <head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
-    <title> Edição Produtos</title>
+    <title>Produtos Cadastro</title>
     <link rel="stylesheet" type="text/css" href="/css/produto/style.css">
 </head>
 <body>
 <main>
     <section class="produto-container form">
-        <h2>Produtos</h2>
         <div>
+            <h2>Informações do Produto</h2>
             <form th:action="${produto.id == null ? '/produto/save' : '/produto/update'}" th:object="${produto}"
                   method="post">
                 <input type="hidden" th:field="*{id}">

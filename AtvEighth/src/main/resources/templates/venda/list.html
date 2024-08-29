@@ -2,33 +2,31 @@
 <html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
 
 <head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
-    <title>Venda</title>
+    <title>Compras Mercado_em_Casa</title>
     <link rel="stylesheet" type="text/css" href="/css/vendas/style.css">
 </head>
 <body>
 <main>
     <section class="container">
-        <div class="container mt-5">
-            <h2>Buscar Vendas por Data</h2>
-            <form th:action="${'/venda/list'}" method="get" class="form-inline">
-                <div class="form-group mb-2">
-                    <label class="sr-only">A partir da Data
-                        <input type="date" class="form-control" name="data" autocomplete="true">
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
-                <div class="leaout-new">
-                <span th:if="${findPepl != null}">
+        <div class="leaout-new">
+            <h2>Buscar Compra</h2>
+            <form th:action="${'/venda/list'}" method="get" class="leaout-data-form">
+                <label class="leaout-data-form">A partir da Data
+                    <input type="date" class="form-control" name="data" autocomplete="true">
+                    <button type="submit" class="btn btn-primary btn-data-form">Buscar</button>
+                </label>
+            </form>
+        </div>
+        <div class="data-info" th:if="${findPepl != null}">
+                <span>
                     <h5 th:text="${'Encontrados: '+findPepl}"></h5>
                     <a class="btn btn-danger"
                        th:href="${'/venda/list'}"
                        onclick="return window.confirm('Deseja realmente limpar a busca?')"
                     >Limpar</a>
                 </span>
-                    <h5 th:text="${mgs}" th:if="${mgs}"></h5>
-                </div>
-            </form>
         </div>
+        <h5 th:text="${mgs}" th:if="${mgs}"></h5>
         <div>
             <h3>Vendas Cadastradas</h3>
         </div>

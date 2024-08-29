@@ -2,7 +2,7 @@
 <html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
 
 <head th:replace="~{fragments/head :: head(~{::link},~{::title})}">
-    <title>Lista de Pessoas</title>
+    <title>Consumidores</title>
     <link rel="stylesheet" type="text/css" href="/css/pessoas/style.css">
 </head>
 
@@ -16,23 +16,21 @@
                 <button class="btn btn-primary btn-lg" th:if="${!isPF}">NOVA Pessoa Juridica</button>
                 <button class="btn btn-primary btn-lg" th:if="${isPF}">NOVA Pessoa Fisica</button>
             </a>
-        </div>
-        <div class="leaout-new">
-            <form th:action="${'/' + pessoa.get(0).nomeClasse() + '/list'}" method="get">
-                <input type="text" name="name" placeholder="Nome">
-                <button type="submit" class="btn btn-primary">Buscar</button>
+            <form th:action="${'/' + pessoa.get(0).nomeClasse() + '/list'}" method="get" class="leaout-data-form">
+                <input type="text" name="name" placeholder="Nome" class="form-control">
+                <button type="submit" class="btn btn-primary btn-data-form">Buscar</button>
             </form>
-            <div class="leaout-new">
-                <span th:if="${findPepl != null}">
+        </div>
+        <div class="data-info" th:if="${findPepl != null}">
+                <span>
                     <h5 th:text="${'Encontrados: '+findPepl}"></h5>
                     <a class="btn btn-danger"
                        th:href="${'/' + pessoa.get(0).nomeClasse() + '/list'}"
                        onclick="return window.confirm('Deseja realmente limpar a busca?')"
                     >Limpar</a>
                 </span>
-                <h5 th:text="${mgs}" th:if="${mgs}"></h5>
-            </div>
         </div>
+        <h5 th:text="${mgs}" th:if="${mgs}"></h5>
         <div class="div-container">
             <a th:each="p : ${pessoa}" th:href="${'/' + p.nomeClasse() + '/'+p.id}">
                 <button class="btn btn-info shadow">

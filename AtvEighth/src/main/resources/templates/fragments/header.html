@@ -4,7 +4,7 @@
 
         <div class="container-xxl">
 
-            <a class="navbar-brand fs-3" href="/pages/home">Site De Compras</a>
+            <a class="navbar-brand fs-3" href="/pages/home">Mercado Em Casa</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,10 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="/produto/comprar">Produtos</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN')">
+                        <a class="nav-link" href="/produto/list">Cad Produtos</a>
                     </li>
 
                     <li class="nav-item">
@@ -37,22 +41,12 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/venda/form">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 width="28" height="28"
-                                 fill="currentColor" class="bi bi-cart"
-                                 viewBox="0 0 16 16">
-                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                            </svg>
-                            <span th:text="${session.venda?.getItensVenda?.size() ?: 0}">0</span>
-                        </a>
-                    </li>
-
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <strong sec:authentication="name"></strong>
+                            <strong sec:authentication="name" th:if="${session.pessoaLogada == null}"></strong>
+                            <strong style="text-transform: capitalize" th:if="${session.pessoaLogada != null}"
+                                    th:text="${session.pessoaLogada.nome}"></strong>
                         </a>
                         <ul>
                             <form th:action="@{/logout}" class="dropdown-menu" method="post">
@@ -63,6 +57,18 @@
                             </form>
                         </ul>
 
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/venda/form">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="28" height="28"
+                                 fill="currentColor" class="bi bi-cart"
+                                 viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                            </svg>
+                            <span th:text="${session.venda?.getItensVenda?.size() ?: 0}">0</span>
+                        </a>
                     </li>
                 </ul>
                 <!--
