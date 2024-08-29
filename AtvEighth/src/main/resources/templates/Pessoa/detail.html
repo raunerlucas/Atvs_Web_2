@@ -42,27 +42,23 @@
                 </button>
             </a>
         </div>
-    </section>
-    <section class="container">
-        <div class="container mt-5">
-            <h2>Buscar Vendas por Data</h2>
-            <form th:action="${'/'+pessoa.nomeClasse()+'/'+pessoa.id}" method="get" class="form-inline">
-                <div class="form-group mb-2">
-                    <label class="sr-only">A partir da Data
-                        <input type="date" class="form-control" name="data" autocomplete="true">
-                    </label>
+        <div class="leaout-new">
+            <h2>Busque por suas compras</h2>
+            <form th:action="${'/'+pessoa.nomeClasse()+'/'+pessoa.id}" method="get" class="leaout-data-form">
+                <label class="leaout-data-form">A partir da Data
+                    <input type="date" class="form-control" name="data" autocomplete="true">
+                    <button type="submit" class="btn btn-primary btn-data-form">Buscar</button>
+                </label>
+                <div class="leaout-new" th:if="${findPepl != null}">
+                    <span>
+                        <h5 th:text="${'Encontrados: '+findPepl}"></h5>
+                        <a class="btn btn-danger"
+                           th:href="${'/'+pessoa.nomeClasse()+'/'+pessoa.id}"
+                           onclick="return window.confirm('Deseja realmente limpar a busca?')"
+                        >Limpar</a>
+                    </span>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
-                <div class="leaout-new">
-                <span th:if="${findPepl != null}">
-                    <h5 th:text="${'Encontrados: '+findPepl}"></h5>
-                    <a class="btn btn-danger"
-                       th:href="${'/'+pessoa.nomeClasse()+'/'+pessoa.id}"
-                       onclick="return window.confirm('Deseja realmente limpar a busca?')"
-                    >Limpar</a>
-                </span>
-                    <h5 th:text="${mgs}" th:if="${mgs}"></h5>
-                </div>
+                <h5 th:text="${mgs}" th:if="${mgs}"></h5>
             </form>
         </div>
         <div>

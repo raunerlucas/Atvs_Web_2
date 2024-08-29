@@ -12,19 +12,19 @@
             <h2>Busque por suas compras</h2>
             <form th:action="${'/venda/comprasUser'}" method="get" class="leaout-data-form">
                 <label class="leaout-data-form">A partir da Data
-                    <input type="date" class="form-control" name="data"  autocomplete="true">
+                    <input type="date" class="form-control" name="data" autocomplete="true">
                     <button type="submit" class="btn btn-primary btn-data-form">Buscar</button>
                 </label>
             </form>
         </div>
         <div class="data-info" th:if="${findPepl != null}">
-                <span>
-                    <h5 th:text="${'Encontrados: '+findPepl}"></h5>
-                    <a class="btn btn-danger"
-                       th:href="${'/venda/comprasUser'}"
-                       onclick="return window.confirm('Deseja realmente limpar a busca?')"
-                    >Limpar</a>
-                </span>
+            <span>
+                <h5 th:text="${'Encontrados: '+findPepl}"></h5>
+                <a class="btn btn-danger"
+                   th:href="${'/venda/comprasUser'}"
+                   onclick="return window.confirm('Deseja realmente limpar a busca?')"
+                >Limpar</a>
+            </span>
         </div>
         <h5 th:text="${mgs}" th:if="${mgs}"></h5>
         <div class="div-container">
