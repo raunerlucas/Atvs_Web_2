@@ -23,6 +23,8 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Autowired
     private UsuarioRepository ryUsuario;
 
+    public Long IDpessoaLogada = 0L;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,

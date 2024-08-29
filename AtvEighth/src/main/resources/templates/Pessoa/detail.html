@@ -19,6 +19,7 @@
                     <th>Telefone</th>
                     <th th:if="${isPF}">CPF</th>
                     <th th:if="${!isPF}">CNPJ</th>
+                    <th>User</th>
                 </tr>
                 </thead>
                 <tr>
@@ -28,6 +29,8 @@
                     <td th:text="${pessoa.telefone}"></td>
                     <td th:if="${isPF}" th:text="${pessoa.cpf}"></td>
                     <td th:if="${!isPF}" th:text="${pessoa.cnpj}"></td>
+                    <td th:if="${pessoa.usuario != null}" th:text="${pessoa.usuario.login}"></td>
+                    <td th:if="${pessoa.usuario == null}">Sem Usuario</td>
                 </tr>
             </table>
         </div>

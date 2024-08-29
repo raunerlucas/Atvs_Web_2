@@ -2,9 +2,11 @@ package com.web.atvSixth.controller.Pessoa;
 
 
 import com.web.atvSixth.configs.Resolve;
+import com.web.atvSixth.model.Entity.Pesssoa.Pessoa;
 import com.web.atvSixth.model.Entity.Pesssoa.PessoaFisica;
 import com.web.atvSixth.model.Entity.Venda;
 import com.web.atvSixth.model.Repository.Pessoa.PessoaFisicaRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +39,20 @@ public class PessoaFisicaController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView listById(@PathVariable("id") Long id,
+    public ModelAndView listById(@PathVariable("id") Long idR,
                                  @RequestParam(required = false) String data,
-                                 ModelMap model) {
-        model.addAttribute("pessoa", ry.pessoaFisica(id));
+                                 ModelMap model,
+                                 HttpSession session) {
         List<Venda> vendas;
+        var pLog = (Pessoa) session.getAttribute("pessoaLogada");
+        Long id;
+        if(pLog != null && pLog.getId().equals(idR))
+            id = idR;
+        else if (pLog != null) {
+            return new ModelAndView("redirect:/pages/home");
+        } else
+            id = idR;
+        model.addAttribute("pessoa", ry.pessoaFisica(id));
         if (data != null && !data.isEmpty()) {
             vendas = r.listVendasByIdPessoa(LocalDate.parse(data), id);
             if (!vendas.isEmpty()) {

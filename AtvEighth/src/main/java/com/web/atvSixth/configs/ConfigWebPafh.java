@@ -28,11 +28,5 @@ public class ConfigWebPafh implements WebMvcConfigurer {
         registry.addRedirectViewController("/venda", "/venda/list");
         registry.addRedirectViewController("/pessoa/fisica", "/pessoa/fisica/list");
         registry.addRedirectViewController("/pessoa/juridica", "/pessoa/juridica/list");
-
-/*  TODO: Verificar melhor como funciona o redirecionamete em caso de status code
-* */
-//        registry.addStatusController("/pages/home", HttpStatusCode.valueOf(403));
     }
-
-
 }
